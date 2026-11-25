@@ -65,3 +65,6 @@ All DC and transient analyses were performed in **Cadence ADE Explorer (Spectre)
 - `trip_point_adjustments.png` — DC VTC showing ~934 mV trip point
 - `SRAM_butterfly_curve.png` & `SRAM_noise_margin.png` — Butterfly curve and SNM measurement
 - `Output_SRAM.png` — Transient read/write waveforms and scalar delay outputs
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/aee63136-fb86-4990-8b13-14bd922258c0" />
+
