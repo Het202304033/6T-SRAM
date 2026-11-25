@@ -31,4 +31,37 @@ All DC and transient analyses were performed in **Cadence ADE Explorer (Spectre)
 
 | Metric | Value | Analysis Type |
 | :--- | :--- | :--- |
-| **Technology / PDK** | `gpdk180` (180nm CMOS
+| **Technology / PDK** | `gpdk180` (180nm CMOS `nmos` / `pmos` cells) | — |
+| **Testbench Sources** | `analogLib` (`vdc`, `vpulse`, `gnd`, `vdd`) | — |
+| **Supply Voltage ($V_{DD}$)** | 1.8 V | — |
+| **Inverter Trip Point** | ~934 mV | DC Sweep |
+| **Hold Static Noise Margin (SNM)** | ~608 mV (Upper eye: 610.2 mV, Lower eye: 608.4 mV) | DC Butterfly Curve |
+| **Read Delay** | 45.72 ps | Transient |
+| **Write Delay** | 613.4 ps | Transient |
+
+### Stability Analysis (Butterfly Curve & SNM)
+- Performed DC sweeps on internal storage nodes (`Q` and `QB`) to plot the Voltage Transfer Characteristics (VTC) and generate the butterfly curve.
+- Adjusted inverter sizing to center the switching trip point near $V_{DD}/2$ (~934 mV), achieving a symmetric Hold SNM of **~608 mV**.
+
+### Functional Verification (Read/Write Transient)
+- Verified end-to-end operation across precharge, write, and read cycles in the top-level `Memory_test` testbench.
+- Confirmed clean bitline precharging, successful cell state transitions during write (`613.4 ps`), and fast differential sensing during read (`45.72 ps`).
+
+---
+
+## Tools & Libraries
+- **Schematic Capture:** Cadence Virtuoso Schematic Editor L
+- **Simulation & Analysis:** Cadence ADE Explorer (Spectre), ViVA Graph
+- **Libraries:** `gpdk180` (`nmos`, `pmos`), `analogLib`
+
+---
+
+## Repository Contents
+- `6T_SRAM_schematic.png` — 6T SRAM bitcell schematic
+- `precharge.png` — 3-PMOS precharge and equalization schematic
+- `sense_amplifier.png` — Differential current-mirror sense amplifier schematic
+- `SRAM_test_schematic.png` — Top-level memory column testbench (`Memory_test`)
+- `butterfly_curve_schematic.png` — DC stability testbench (`6T_SRAM_internal_node_access`)
+- `trip_point_adjustments.png` — DC VTC showing ~934 mV trip point
+- `SRAM_butterfly_curve.png` & `SRAM_noise_margin.png` — Butterfly curve and SNM measurement
+- `Output_SRAM.png` — Transient read/write waveforms and scalar delay outputs
