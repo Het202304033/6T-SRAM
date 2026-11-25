@@ -1,12 +1,12 @@
 # 6T SRAM Cell & Peripheral Circuit Design (180nm CMOS)
 
-Transistor-level design, stability characterization, and transient verification of a **6T SRAM bitcell** integrated with its core peripheral circuitry—**precharge/equalization**, **write driver**, and **differential sense amplifier**—implemented in **180nm CMOS** using Cadence Virtuoso and Spectre.
+Transistor-level design, stability characterization, and transient verification of a **6T SRAM bitcell** integrated with its core peripheral circuitry—**precharge/equalization**, **write driver**, and **differential sense amplifier**—implemented in **180nm CMOS (`gpdk180`)** using Cadence Virtuoso and Spectre.
 
 ---
 
 ## Architecture & Sub-Circuits
 
-The memory column (`Memory_test`) integrates four custom-designed blocks operating at a **1.8 V** nominal supply:
+The memory column (`Memory_test`) integrates four custom-designed blocks built using **`gpdk180` NMOS and PMOS cells** and driven by **`analogLib` sources** at a **1.8 V** nominal supply:
 
 1. **6T SRAM Bitcell (`6T_SRAM`)**
    - Built using two cross-coupled CMOS inverters for bistable storage (`Q`, `QB`) and two NMOS access transistors (`W = 480 nm`, `L = 180 nm`) gated by the Wordline (`WL`) to interface with the Bitline (`BL`) and Bitline Bar (`BLB`).
@@ -27,40 +27,8 @@ The memory column (`Memory_test`) integrates four custom-designed blocks operati
 
 ## Simulation & Characterization Results
 
-All DC and transient analyses were performed in **Cadence ADE Explorer (Spectre)** and visualized in **ViVA**.
+All DC and transient analyses were performed in **Cadence ADE Explorer (Spectre)** using `analogLib` DC and pulse voltage sources, and visualized in **ViVA**.
 
 | Metric | Value | Analysis Type |
 | :--- | :--- | :--- |
-| **Technology Node** | 180nm CMOS (`N_18_MM` / `P_18_MM`) | — |
-| **Supply Voltage ($V_{DD}$)** | 1.8 V | — |
-| **Inverter Trip Point** | ~934 mV | DC Sweep |
-| **Hold Static Noise Margin (SNM)** | ~608 mV (Upper eye: 610.2 mV, Lower eye: 608.4 mV) | DC Butterfly Curve |
-| **Read Delay** | 45.72 ps | Transient |
-| **Write Delay** | 613.4 ps | Transient |
-
-### Stability Analysis (Butterfly Curve & SNM)
-- Performed DC sweeps on internal storage nodes (`Q` and `QB`) to plot the Voltage Transfer Characteristics (VTC) and generate the butterfly curve.
-- Adjusted inverter sizing to center the switching trip point near $V_{DD}/2$ (~934 mV), achieving a symmetric Hold SNM of **~608 mV**.
-
-### Functional Verification (Read/Write Transient)
-- Verified end-to-end operation across precharge, write, and read cycles in the top-level `Memory_test` testbench.
-- Confirmed clean bitline precharging, successful cell state transitions during write (`613.4 ps`), and fast differential sensing during read (`45.72 ps`).
-
----
-
-## Tools & Environment
-- **Schematic Capture:** Cadence Virtuoso Schematic Editor L
-- **Simulation & Analysis:** Cadence ADE Explorer (Spectre), ViVA Graph
-- **PDK:** 180nm CMOS
-
----
-
-## Repository Contents
-- `6T_SRAM_schematic.png` — 6T SRAM bitcell schematic
-- `precharge.png` — 3-PMOS precharge and equalization schematic
-- `sense_amplifier.png` — Differential current-mirror sense amplifier schematic
-- `SRAM_test_schematic.png` — Top-level memory column testbench (`Memory_test`)
-- `butterfly_curve_schematic.png` — DC stability testbench (`6T_SRAM_internal_node_access`)
-- `trip_point_adjustments.png` — DC VTC showing ~934 mV trip point
-- `SRAM_butterfly_curve.png` & `SRAM_noise_margin.png` — Butterfly curve and SNM measurement
-- `Output_SRAM.png` — Transient read/write waveforms and scalar delay outputs
+| **Technology / PDK** | `gpdk180` (180nm CMOS
