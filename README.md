@@ -1,4 +1,3 @@
-# 6T-SRAM
 # 6T SRAM Cell & Peripheral Circuit Design (180nm CMOS)
 
 Transistor-level design, stability characterization, and transient verification of a **6T SRAM bitcell** integrated with its core peripheral circuitry—**precharge/equalization**, **write driver**, and **differential sense amplifier**—implemented in **180nm CMOS** using Cadence Virtuoso and Spectre.
